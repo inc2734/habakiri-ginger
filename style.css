@@ -1,0 +1,165 @@
+/*
+Theme Name: habakiri-ginger
+Theme URI: https://github.com/inc2734/habakiri-ginger
+Author: inc2734
+Author URI: http://2inc.org
+Description: ginger is a child theme of Habakiri.
+Version: 1.0.0
+License: GPLv2 of later
+License URI: license.txt
+Template: habakiri
+*/
+
+/**
+ * content
+ */
+body {
+	color: #333;
+}
+h2 {
+	background-color: #ffac97;
+	border-radius: 5px;
+	color: #fff;
+	font-size: 24px;
+	padding: 5px 15px;
+}
+h3 {
+	background-color: #eee;
+	border-radius: 5px;
+	padding: 5px 15px;
+}
+h4 {
+	border-bottom: 1px solid #ddd;
+	padding: 0 0 5px;
+}
+
+/**
+ * layout
+ */
+.page-header {
+	border-bottom: none;
+	padding: 0;
+	text-align: left;
+}
+.page-header .container {
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 20px;
+}
+
+.entries .hentry {
+	border-bottom: 1px dotted #ddd;
+	margin-bottom: 40px;
+	padding-bottom:40px;
+}
+.entries .hentry .entry-meta {
+	margin-bottom: 0;
+}
+.entries .hentry .summary-with-thumbnail {
+	overflow: hidden;
+}
+.entries .hentry .summary-with-thumbnail-thumbnail {
+	margin-right: 20px;
+	width: 80px;
+}
+.entries .hentry .summary-with-thumbnail-thumbnail a {
+	border-radius: 0;
+	height: auto;
+	min-height: 60px;
+	width: auto;
+}
+#main .entries .hentry .summary-with-thumbnail .no-thumbnail {
+	background-color: #eee;
+}
+.entries .hentry .summary-with-thumbnail-thumbnail a .no-thumbnail-text {
+	display: none;
+}
+
+.entry-meta {
+	color: #666;
+}
+.entry-meta a {
+	color: #999;
+}
+
+.sidebar a {
+	color: #666;
+}
+.sidebar h2 {
+	background-color: transparent;
+	padding: 0;
+}
+.sidebar .widget ul {
+	border-top: 1px dotted #ddd;
+	border-bottom: 1px dotted #ddd;
+}
+.sidebar .widget ul ul {
+	border-bottom: none;
+	margin-bottom: -5px;
+}
+.sidebar .widget ul li {
+	border-top: 1px dotted #ddd;
+	margin: 0;
+	padding: 5px 0;
+}
+.sidebar .widget ul li:first-child {
+	border-top: none;
+}
+
+.related-posts h2 {
+	color: #fff;
+}
+#comments h2, #trackback h2 {
+	color: #fff;
+}
+
+.footer-widget-area {
+	padding-top: 40px;
+}
+.footer-widget-area .widget ul {
+	list-style: none;
+	margin-left: 0;
+	padding-left: 0;
+}
+.footer-widget-area .widget ul li {
+	margin-left: 0;
+	padding: 2px 0;
+}
+.footer-widget-area .widget ul li ul {
+	border-bottom: none;
+}
+.footer-widget-area .widget ul li ul li {
+	padding-left: 1em;
+}
+
+.btn-primary {
+	background-color: #817471;
+	border-color: #7F564C;
+}
+.btn-primary.active, .btn-primary.focus, .btn-primary:active, .btn-primary:focus, .btn-primary:hover, .open>.btn-primary.dropdown-toggle {
+	background-color: #7F564C;
+	border-color: #7F564C;
+}
+
+#footer .footer-widget-area h2 {
+	background-color: transparent;
+	border-bottom: 1px solid #ccbbb6;
+	color: #333;
+	border-radius: 0;
+	padding: 0 0 5px;
+}
+
+@media ( min-width: 992px ) {
+	#header.header-center {
+		padding-top: 40px;
+		padding-bottom: 60px;
+	}
+}
+
+@media ( min-width: 768px ) {
+	.entries .hentry .summary-with-thumbnail-thumbnail {
+		width: 150px;
+	}
+	.entries .hentry .summary-with-thumbnail-thumbnail a {
+		min-height: 100px;
+	}
+}
