@@ -54,10 +54,20 @@ class habakiri_Theme_GitHub_Updater {
 		$this->theme     = wp_get_theme( $slug );
 		$this->user_name = $user_name;
 
-		add_filter( 'pre_set_site_transient_update_themes', array( $this, 'pre_set_site_transient_update_themes' ) );
-		add_filter( 'themes_api'                          , array( $this, 'themes_api' ), 10, 3 );
-		add_filter( 'upgrader_post_install'                , array( $this, 'upgrader_post_install' ), 10, 3 );
-		add_filter( 'site_transient_update_themes'        , array( $this, 'site_transient_update_themes' ) );
+		add_filter(
+			'pre_set_site_transient_update_themes',
+			array( $this, 'pre_set_site_transient_update_themes' )
+		);
+		add_filter(
+			'upgrader_post_install',
+			array( $this, 'upgrader_post_install' ),
+			9,
+			3
+		);
+		add_filter(
+			'wp_prepare_themes_for_js',
+			array( $this, 'wp_prepare_themes_for_js' )
+		);
 	}
 
 	/**
@@ -68,6 +78,9 @@ class habakiri_Theme_GitHub_Updater {
 	 */
 	public function pre_set_site_transient_update_themes( $transient ) {
 		if ( empty( $transient->checked ) ) {
+			return $transient;
+		}
+		if ( empty( $transient->checked[$this->slug] ) ) {
 			return $transient;
 		}
 
@@ -86,54 +99,15 @@ class habakiri_Theme_GitHub_Updater {
 			return $transient;
 		}
 
-		$theme              = new stdClass();
-		$theme->theme       = $this->slug;
-		$theme->new_version = $github->name;
-		$theme->url         = $this->theme->get( 'ThemeURI' );
-		$theme->package     = $github->zipball_url;
-
-		$transient->response[$slug] = $theme;
-		return $transient;
-	}
-
-	/**
-	 * テーマ詳細情報に表示する情報
-	 *
-	 * @param mixed $result
-	 * @param string $action
-	 * @param array|object $response
-	 * @return mixed
-	 */
-	public function themes_api( $result, $action, $response ) {
-		if ( $action !== 'theme_information' ) {
-			return $result;
-		}
-		if ( empty( $response->slug ) || $response->slug != $this->slug ) {
-			return $result;
-		}
-
-		$github = $this->get_github();
-
-		$new_result                = new stdClass();
-		$new_result->slug          = $this->slug;
-		$new_result->name          = $this->theme->get( 'Name' );
-		$new_result->homepage      = $this->theme->get( 'AuthorURI' );
-		$new_result->version       = $github->name;
-		$new_result->description   = $this->theme->get( 'Description' );
-		$new_result->author        = $this->theme->get( 'Author' );
-		$new_result->preview_url   = $this->theme->get( 'ThemeURI' );
-		$new_result->last_updated  = $github->last_modified;
-		$new_result->download_link = $github->zipball_url;
-
-		$new_result->sections = array(
-			'description' => $this->theme->get( 'Description' ),
-			'changelog'   => sprintf(
-				'<a href="%s" target="_blank">See Repository.</a>',
-				esc_url( $new_result->homepage )
-			),
+		$theme = array(
+			'theme'       => $this->slug,
+			'new_version' => $github->name,
+			'url'         => $this->theme->get( 'ThemeURI' ),
+			'package'     => $github->zipball_url
 		);
 
-		return $new_result;
+		$transient->response[$this->slug] = $theme;
+		return $transient;
 	}
 
 	/**
@@ -146,18 +120,30 @@ class habakiri_Theme_GitHub_Updater {
 	 */
 	public function upgrader_post_install( $response, $hook_extra, $result ) {
 		if ( !isset( $hook_extra['theme'] ) || $hook_extra['theme'] !== $this->slug ) {
-			return $result;
+			return $response;
 		}
-		$is_activated = ( get_stylesheet() === $this->slug );
 
 		global $wp_filesystem;
 		$theme_dir_path = get_theme_root() . DIRECTORY_SEPARATOR . $this->slug;
 		$wp_filesystem->move( $result['destination'], $theme_dir_path );
-		$result['destination'] = $theme_dir_path;
+
 		if ( $is_activated ) {
-			$activate = switch_theme( $this->slug );
+			add_action( 'switch_theme', array( $this, 'switch_theme' ) );
 		}
-		return $result;
+
+		return $response;
+	}
+
+	/**
+	 * 現在のテーマが本テーマでないときは強制的に切り替える
+	 *
+	 * @param string $new_name 現在のテーマ名
+	 */
+	public function switch_theme( $new_name ) {
+		if ( $new_name !== $this->slug ) {
+			switch_theme( $this->slug );
+		}
+		remove_action( 'switch_theme', array( $this, 'switch_theme' ) );
 	}
 
 	/**
@@ -197,27 +183,23 @@ class habakiri_Theme_GitHub_Updater {
 	}
 
 	/**
-	 * @param object $updates
-	 * @return object $updates
+	 * アップデートメッセージをカスタマイズ
+	 *
+	 * @param $prepared_themes
+	 * @return mixed
 	 */
-	public function site_transient_update_themes( $updates ) {
-		if ( !is_array( $updates ) ) {
-			return $updates;
+	public function wp_prepare_themes_for_js( $prepared_themes ) {
+		if ( empty( $prepared_themes[$this->slug] ) ) {
+			return $prepared_themes;
 		}
-
-		foreach ( $updates as $key => $update ) {
-			if ( $key === 'response' || $key === 'no_update' ) {
-				if ( !empty( $update[$slug] ) ) {
-					/*
-					$update[$slug]->id     = 0;
-					$update[$slug]->plugin = $slug;
-					$update[$slug]->slug   = $this->slug;
-					*/
-					var_dump( $update[$slug] );
-				}
-				$updates->$key = $update;
-			}
+		if ( $prepared_themes[$this->slug]['hasUpdate'] ) {
+			$prepared_themes[$this->slug]['update'] = sprintf(
+				'<br />
+				<strong>There is a new version of %s available now. <a href="%s">update now</a>.</strong>',
+				esc_html( $this->theme->get( 'Name') ),
+				wp_nonce_url( self_admin_url( 'update.php?action=upgrade-theme&theme=' ) . urlencode( $this->slug ), 'upgrade-theme_' . $this->slug )
+			);
 		}
-		return $updates;
+		return $prepared_themes;
 	}
 }

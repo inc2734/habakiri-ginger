@@ -1,4 +1,4 @@
-=== Habakiri ===
+=== Ginger ===
 Contributors: inc2734
 Donate link: http://www.amazon.co.jp/registry/wishlist/39ANKRNSTNW40
 Requires at least: 4.1
@@ -8,7 +8,7 @@ License: GPLv2 of later
 License URI: license.txt
 
 == Description ==
-ginger is a child theme of Habakiri.
+Ginger is a child theme of Habakiri.
 
 == Installation ==
 
