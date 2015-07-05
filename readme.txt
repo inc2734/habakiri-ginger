@@ -1,5 +1,5 @@
 === Ginger ===
-Contributors: inc2734
+Contributors: Takashi Kitajima
 Donate link: http://www.amazon.co.jp/registry/wishlist/39ANKRNSTNW40
 Requires at least: 4.1
 Tested up to: 4.2.2
@@ -8,26 +8,13 @@ License: GPLv2 of later
 License URI: license.txt
 
 == Description ==
-Ginger is a child theme of Habakiri.
+
+Ginger is a design skin of Habakiri.
 
 == Installation ==
 
-= Installation using "Add New Theme" =
-1. From your Admin UI (Dashboard), go to Appearance => Themes. Click the "Add New" button.
-2. Click the "Upload" button, and then select the theme you want to install.
-3. Click the "Install Now" button.
-
-= Manual installation =
-1. Upload the "habakiri-ginger" folder to the "/wp-content/themes/" directory.
-
-= Activiation and Use =
-1. Activate the Theme through the "Themes" menu in WordPress.
-
-== Theme features ==
-
-= Logo setting =
-
-You can upload a logo image in Customizer.
+1. Upload `Ginger` to the `/wp-content/plugins/` directory
+1. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
 

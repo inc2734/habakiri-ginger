@@ -22,12 +22,12 @@
 					min-height: 60px;
 					width: auto;
 
-					.no-thumbnail-text {
-						display: none;
+					#main &.no-thumbnail {
+						background-color: #eee;
 					}
 
-					.no-thumbnail {
-						background-color: #eee;
+					.no-thumbnail-text {
+						display: none;
 					}
 				}
 
