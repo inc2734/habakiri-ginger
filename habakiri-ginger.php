@@ -3,11 +3,11 @@
  * Plugin Name: Ginger - Habakiri design skin
  * Plugin URI: https://github.com/inc2734/habakiri-ginger
  * Description: Ginger is a design skin of Habakiri.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Takashi Kitajima
  * Author URI: http://2inc.org
  * Created : July 5, 2015
- * Modified: 
+ * Modified: July 5, 2015
  * Text Domain: habakiri-ginger
  * Domain Path: /languages/
  * License: GPLv2 or later
@@ -66,6 +66,11 @@ class Habakiri_Ginger {
 			array( $this, 'theme_mod_header_fixed' )
 		);
 
+		add_filter(
+			'habakiri_post_thumbnail_size',
+			array( $this, 'habakiri_post_thumbnail_size' )
+		);
+
 		add_action(
 			'wp_enqueue_scripts',
 			array( $this, 'wp_enqueue_scripts' )
@@ -104,12 +109,34 @@ class Habakiri_Ginger {
 		return $mce_css;
 	}
 
+	/**
+	 * ヘッダーのレイアウトを指定
+	 *
+	 * @param string $mod
+	 * @return string
+	 */
 	public function theme_mod_header( $mod ) {
 		return 'header-center';
 	}
 
+	/**
+	 * ヘッダーを固定するかどうか
+	 *
+	 * @param string $mod
+	 * @return string
+	 */
 	public function theme_mod_header_fixed( $mod ) {
 		return 'false';
+	}
+
+	/**
+	 * サムネイルサイズ
+	 *
+	 * @param string $size
+	 * @return string
+	 */
+	public function habakiri_post_thumbnail_size( $size ) {
+		return 'medium';
 	}
 
 	/**
