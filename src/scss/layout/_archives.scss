@@ -1,0 +1,43 @@
+/**
+ * .entries
+ */
+.entries {
+	.hentry {
+		border-bottom: 1px dotted #ddd;
+		margin-bottom: 40px;
+		padding-bottom:40px;
+
+		.entry-meta {
+			margin-bottom: 0;
+		}
+
+		.summary-with-thumbnail {
+			overflow: hidden;
+			&-thumbnail {
+				margin-right: 20px;
+				width: 80px;
+				a {
+					border-radius: 0;
+					height: auto;
+					min-height: 60px;
+					width: auto;
+
+					.no-thumbnail-text {
+						display: none;
+					}
+
+					.no-thumbnail {
+						background-color: #eee;
+					}
+				}
+
+				@media ( min-width: 768px ) {
+					width: 150px;
+					a {
+						min-height: 100px;
+					}
+				}
+			}
+		}
+	}
+}

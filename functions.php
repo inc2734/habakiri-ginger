@@ -24,6 +24,11 @@ function habakiri_ginger_theme_setup() {
 				array( $this, 'habakiri_theme_mods_defaults' )
 			);
 
+			add_filter(
+				'mce_css',
+				array( $this, 'mce_css' )
+			);
+
 			add_action(
 				'customize_register',
 				array( $this, 'customize_register' ),
@@ -61,28 +66,42 @@ function habakiri_ginger_theme_setup() {
 			$wp_customize->remove_control( 'header' );
 		}
 
-	/**
-	 * サムネイルを表示
-	 */
-	public static function the_post_thumbnail() {
-		$classes = array();
-		if ( !has_post_thumbnail() ) {
-			$classes[] = 'no-thumbnail';
+		/**
+		 * エディタに CSS を適用
+		 *
+		 * @param string $mce_css CSS のURL
+		 * @return string
+		 */
+		public function mce_css( $mce_css ) {
+			if ( ! empty( $mce_css ) ) {
+				$mce_css .= ',';
+			}
+			$mce_css .= get_stylesheet_directory_uri() . '/editor-style.min.css';
+			return $mce_css;
 		}
-		?>
-		<a href="<?php the_permalink(); ?>" class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
-			<?php if ( has_post_thumbnail() ) : ?>
-				<?php
-				the_post_thumbnail( 'medium', array(
-					'class' => '',
-				) );
-				?>
-			<?php else : ?>
-				<span class="no-thumbnail-text"><?php the_time( 'd' ); ?></span>
-			<?php endif; ?>
-		</a>
-		<?php
-	}
+
+		/**
+		 * サムネイルを表示
+		 */
+		public static function the_post_thumbnail() {
+			$classes = array();
+			if ( !has_post_thumbnail() ) {
+				$classes[] = 'no-thumbnail';
+			}
+			?>
+			<a href="<?php the_permalink(); ?>" class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
+				<?php if ( has_post_thumbnail() ) : ?>
+					<?php
+					the_post_thumbnail( 'medium', array(
+						'class' => '',
+					) );
+					?>
+				<?php else : ?>
+					<span class="no-thumbnail-text"><?php the_time( 'd' ); ?></span>
+				<?php endif; ?>
+			</a>
+			<?php
+		}
 	}
 }
 add_action( 'after_setup_theme', 'habakiri_ginger_theme_setup' );

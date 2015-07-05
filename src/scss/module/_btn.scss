@@ -1,0 +1,17 @@
+/**
+ * .btn-primary
+ */
+.btn-primary {
+	background-color: #817471;
+	border-color: #7F564C;
+
+	&.active,
+	&.focus,
+	&:active,
+	&:focus,
+	&:hover,
+	.open>&.dropdown-toggle {
+		background-color: #7F564C;
+		border-color: #7F564C;
+	}
+}
