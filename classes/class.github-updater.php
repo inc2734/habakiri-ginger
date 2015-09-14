@@ -1,18 +1,18 @@
 <?php
-if ( class_exists( 'habakiri_Plugin_GitHub_Updater' ) || !is_admin() ) {
+if ( class_exists( 'Habakiri_Plugin_GitHub_Updater' ) || !is_admin() ) {
 	return;
 }
 
 /**
  * habakiri_Plugin_GitHub_Updater
- * Version    : 1.0.0
+ * Version    : 1.0.2
  * Author     : Takashi Kitajima
  * Created    : June 15, 2015
- * Modified   : 
+ * Modified   : September 14, 2015
  * License    : GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
-class habakiri_Plugin_GitHub_Updater {
+class Habakiri_Plugin_GitHub_Updater {
 
 	/**
 	 * プラグインのディレクトリ名
@@ -45,7 +45,7 @@ class habakiri_Plugin_GitHub_Updater {
 	 */
 	public function __construct( $slug, $path, $user_name ) {
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true ) {
-			delete_site_transient( 'update_plugin' );
+			delete_site_transient( 'update_plugins' );
 		}
 		
 		if ( !function_exists( 'get_plugin_data' ) ){
@@ -55,29 +55,24 @@ class habakiri_Plugin_GitHub_Updater {
 		$this->plugin    = get_plugin_data( $path, false, false );
 		$this->user_name = $user_name;
 
-
 		add_filter(
 			'pre_set_site_transient_update_plugins',
 			array( $this, 'pre_set_site_transient_update_plugins' )
 		);
+		
 		add_filter(
 			'plugins_api',
 			array( $this, 'plugins_api' ),
 			10,
 			3
 		);
+		
 		add_filter(
 			'upgrader_post_install',
 			array( $this, 'upgrader_post_install' ),
 			10,
 			3
 		);
-		/*
-		add_filter(
-			'site_transient_update_plugins',
-			array( $this, 'site_transient_update_plugins' )
-		);
-		*/
 	}
 
 	/**
