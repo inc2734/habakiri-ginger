@@ -1,39 +1,17 @@
-/**
- * .footer-widget-area
- */
 .footer-widget-area {
 	padding-top: 40px;
+}
 
-	h2 {
+.footer-widget {
+	&__title {
 		background-color: transparent;
 		border-bottom: 1px solid #ccbbb6;
 		color: #333;
 		border-radius: 0;
 		padding: 0 0 5px;
 	}
-
-	.widget {
-		ul {
-			list-style: none;
-			margin-left: 0;
-			padding-left: 0;
-			li {
-				margin-left: 0;
-				padding: 2px 0;
-				ul {
-					border-bottom: none;
-					li {
-						padding-left: 1em;
-					}
-				}
-			}
-		}
-	}
 }
 
-/**
- * .social-nav 
- */
 .social-nav {
 	ul {
 		li {

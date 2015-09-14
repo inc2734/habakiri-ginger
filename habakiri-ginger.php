@@ -116,7 +116,7 @@ class Habakiri_Ginger {
 	 * @return string
 	 */
 	public function theme_mod_header( $mod ) {
-		return 'header-center';
+		return 'header--center';
 	}
 
 	/**
@@ -147,8 +147,6 @@ class Habakiri_Ginger {
 	 */
 	public function habakiri_theme_mods_defaults( $args ) {
 		return shortcode_atts( $args, array(
-			'header'                 => 'header-center',
-			'header_fixed'           => 'false',
 			'page_header_bg_color'   => '#fff',
 			'page_header_text_color' => '#333',
 			'link_color'             => '#ffac97',

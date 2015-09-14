@@ -1,28 +1,37 @@
-/**
- * .sidebar
- */
-.sidebar {
+.sidebar-widget {
 	a {
 		color: #666;
 	}
-
-	h2 {
+	
+	&__title {
 		background-color: transparent;
 		padding: 0;
 	}
+}
 
-	.widget {
+.sidebar {
+	.widget_recent_entries,
+	.widget_recent_comments,
+	.widget_archive,
+	.widget_categories,
+	.widget_meta,
+	.widget_pages,
+	.widget_nav_menu {
 		ul {
 			border-top: 1px dotted #ddd;
 			border-bottom: 1px dotted #ddd;
+			
 			li {
 				border-top: 1px dotted #ddd;
 				margin: 0;
-				padding: 5px 0;
+				padding-top: 5px;
+				padding-bottom: 5px;
+				
 				&:first-child {
 					border-top: none;
 				}
 			}
+			
 			ul {
 				border-bottom: none;
 				margin-bottom: -5px;

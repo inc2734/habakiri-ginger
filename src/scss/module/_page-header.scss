@@ -1,13 +1,9 @@
-/**
- * .page-header
- */
 .page-header {
 	border-bottom: none;
 	padding: 20px 0 20px;
-	.container {
-		h1 {
-			border-bottom: 1px solid #ddd;
-			padding-bottom: 20px;
-		}
+	
+	&__title {
+		border-bottom: 1px solid #ddd;
+		padding-bottom: 20px;
 	}
 }

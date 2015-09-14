@@ -19,6 +19,7 @@ Ginger is a design skin of Habakiri.
 == Changelog ==
 
 = 2.0.0 =
+* Compatible with Habakiri 2.0.0
 * Update Habakiri_Plugin_GitHub_Updater
 
 = 1.0.3 =
