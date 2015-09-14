@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Ginger - Habakiri design skin
  * Plugin URI: https://github.com/inc2734/habakiri-ginger
- * Description: Ginger is a design skin of Habakiri.
+ * Description: Ginger is a design skin of Habakiri. This plugin needs Habakiri 2.0.0 or later.
  * Version: 2.0.0
  * Author: Takashi Kitajima
  * Author URI: http://2inc.org

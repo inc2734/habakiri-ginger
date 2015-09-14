@@ -9,7 +9,7 @@ License URI: license.txt
 
 == Description ==
 
-Ginger is a design skin of Habakiri.
+Ginger is a design skin of Habakiri. This plugin needs Habakiri 2.0.0 or later.
 
 == Installation ==
 
