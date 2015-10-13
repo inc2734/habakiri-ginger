@@ -5,10 +5,10 @@ if ( class_exists( 'Habakiri_Plugin_GitHub_Updater' ) || !is_admin() ) {
 
 /**
  * habakiri_Plugin_GitHub_Updater
- * Version    : 1.0.2
+ * Version    : 1.0.3
  * Author     : Takashi Kitajima
  * Created    : June 15, 2015
- * Modified   : September 14, 2015
+ * Modified   : October 13, 2015
  * License    : GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
@@ -63,7 +63,7 @@ class Habakiri_Plugin_GitHub_Updater {
 		add_filter(
 			'plugins_api',
 			array( $this, 'plugins_api' ),
-			10,
+			11,
 			3
 		);
 		
