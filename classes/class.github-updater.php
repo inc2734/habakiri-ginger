@@ -1,14 +1,10 @@
 <?php
-if ( class_exists( 'Habakiri_Plugin_GitHub_Updater' ) || !is_admin() ) {
-	return;
-}
-
 /**
  * habakiri_Plugin_GitHub_Updater
- * Version    : 1.0.3
+ * Version    : 1.1.0
  * Author     : Takashi Kitajima
  * Created    : June 15, 2015
- * Modified   : October 13, 2015
+ * Modified   : August 16, 2016
  * License    : GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
@@ -37,7 +33,7 @@ class Habakiri_Plugin_GitHub_Updater {
 	 * @var object
 	 */
 	protected $github;
-	
+
 	/**
 	 * @param string $slug プラグインのディレクトリ名
 	 * @param string $path プラグインメインファイルのフルパス
@@ -47,7 +43,7 @@ class Habakiri_Plugin_GitHub_Updater {
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true ) {
 			delete_site_transient( 'update_plugins' );
 		}
-		
+
 		if ( !function_exists( 'get_plugin_data' ) ){
 			require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
 		}
@@ -59,14 +55,14 @@ class Habakiri_Plugin_GitHub_Updater {
 			'pre_set_site_transient_update_plugins',
 			array( $this, 'pre_set_site_transient_update_plugins' )
 		);
-		
+
 		add_filter(
 			'plugins_api',
 			array( $this, 'plugins_api' ),
 			11,
 			3
 		);
-		
+
 		add_filter(
 			'upgrader_post_install',
 			array( $this, 'upgrader_post_install' ),
@@ -163,11 +159,11 @@ class Habakiri_Plugin_GitHub_Updater {
 	 */
 	public function upgrader_post_install( $response, $hook_extra, $result ) {
 		$slug = $this->get_relative_plugin_path();
-		
+
 		if ( !isset( $hook_extra['plugin'] ) || $hook_extra['plugin'] !== $slug ) {
 			return $response;
 		}
-		
+
 		$is_activated = is_plugin_active( $slug );
 
 		global $wp_filesystem;
